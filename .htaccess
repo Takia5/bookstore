@@ -1,0 +1,20 @@
+#mod_rewrite starts here
+
+RewriteEngine on
+
+#does not apply to existing directories, means if the folder exists on the server then don't change anything and don't run the rule
+RewriteCond %{REQUEST_FILENAME} !-d
+
+#Check for file in directory with .php extension
+RewriteCond %{REQUEST_FILENAME}\.php -f
+
+#Setting a default page other than index.php
+DirectoryIndex home.php
+
+#Here we actually show the page that has the .php extension
+RewriteRule ^(.*)$ $1.php [NC,L]
+
+php_value upload_max_filesize 128M
+php_value post_max_size 128M
+php_value max_execution_time 300
+php_value max_input_time 300
